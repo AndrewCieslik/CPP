@@ -1,0 +1,71 @@
+#include<iostream>
+//ta wartosć nie może pojawić się jako element stosu
+#define ERROR 1000000000 
+//maksymalna wielkosć stosu
+#define MAX 100
+using namespace std;
+
+int tab[MAX],  //tablica na stos
+i = 0; //zmienna wskazująca komórkę tablicy, w której jest wierzchołek stosu
+
+inline bool push(int element)
+{
+    if (i >= MAX) return 0; //gdy nie ma miejsca na stosie
+
+    tab[i++] = element;
+    return 1;
+}
+
+inline int pop()
+{
+    if (i == 0) return ERROR; //gdy nie ma co usuwać
+
+    --i;
+    return 1; //udało się usunąć
+}
+
+inline bool empty()
+{
+    if (i == 0) return 1; //gdy stos jest pusty
+
+    return 0; //gdy są elementy na stosie
+}
+
+inline unsigned int size()
+{
+    return i; //zwrócenie liczby elementów stosu
+}
+
+inline int value()
+{
+    if (i == 0) return ERROR; //gdy stos jest pusty
+
+    return tab[i - 1];
+}
+
+int main()
+{
+    if (!push(12)) cout << "Stos jest przepełniony!\n";
+    if (!push(23)) cout << "Stos jest przepełniony!\n";
+    if (!push(43)) cout << "Stos jest przepełniony!\n";
+    if (!push(99)) cout << "Stos jest przepełniony!\n";
+
+
+    cout << "Liczba elementów na stosie: " << size() << endl;
+    cout << "Element, który można usunąć: " << value() << endl;
+    pop(); //usunięcie 99
+    pop(); //usunięcie 43
+    cout << "Element, który można usunąć: " << value() << endl;
+    pop(); //usunięcie 23
+    pop(); //usunięcie 12
+    if (empty())
+        cout << "Stos jest pusty\n";
+    else
+        cout << "Na stosie znajdują się elementy, jest ich " << size() << endl;
+
+    if (pop() == ERROR)
+        cout << "Nie można usunąć elementu ze stosu, ponieważ jest on pusty\n";
+
+    return 0;
+}
+// https://www.algorytm.edu.pl/struktury-danych/stos-kolejka-lifo.html
